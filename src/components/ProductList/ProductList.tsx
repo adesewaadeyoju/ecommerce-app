@@ -7,6 +7,8 @@ type Props={
     addToCart: (product:Product) =>void;
 }
 
+
+
 const ProductList: React.FC<Props> = ({products, addToCart}) => {
   return (
     <div>
@@ -17,7 +19,11 @@ const ProductList: React.FC<Props> = ({products, addToCart}) => {
                 <img src={product.image} alt={product.name} width={100}/>
                 <h4>{product.name}</h4>
                 <p>$ {product.price.toFixed(2)}</p>
-                <button onClick={() => addToCart(product)}>Add to Cart</button>
+                <button onClick={(e) => {
+                    e.preventDefault()
+                    addToCart(product)
+                    }}>
+                    Add to Cart</button>
             </div>
         ))}
         </div>

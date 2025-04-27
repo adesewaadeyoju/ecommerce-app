@@ -14,9 +14,10 @@ const Cart = () => {
     }, [cart]);
 
     const increaseQty =(id: number) =>{
+        console.log('was here')
         setCart((prev)=>
             prev.map((item)=>
-           item.id=== id? {...item, quantity: item.quantity+ 1} : item ))
+           item.id === id ? {...item, quantity: item.quantity + 1} : item ))
     }
 
     const decreaseQty =(id: number) =>{
@@ -36,8 +37,10 @@ const total = cart.reduce((sum, item)=> sum+item.price * item.quantity, 0);
 
   return (
     <div>
-        <h2>Your Cart</h2>
-    cart.length === 0? (
+        <h2>Your Cart ({cart.length})</h2>
+        {
+    cart.length === 0 ? (
+        <div>Cart is empty</div>
     ) : (
         <ul>
             {cart.map((item)=>(
@@ -47,15 +50,16 @@ const total = cart.reduce((sum, item)=> sum+item.price * item.quantity, 0);
                     <div>
                         <button onClick={() => decreaseQty(item.id)}
                             disabled={item.quantity<=1}>-</button>
-                            <button onClick={() => increaseQty(item.id)}
-                            disabled={item.quantity<=1}>+</button>
-                            <button onClick={() => removeItem(item.id)}
-                            style={{color:'red', marginLeft:'1rem'}}>Remove</button>
+
+                        <button onClick={() => increaseQty(item.id)} >+</button>
+
+                        <button onClick={() => removeItem(item.id)}
+                        style={{color:'red', marginLeft:'1rem'}}>Remove</button>
                     </div>
                 </li>
             ))}
         </ul>
-    )
+    )}
     <h3>Total: ${total.toFixed(2)}</h3>
     </div>
   )
